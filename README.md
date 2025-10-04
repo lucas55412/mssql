@@ -1,4 +1,4 @@
-# MSSQL 初學者講稿（Docker 版）
+# MSSQL
 
 ---
 
@@ -18,14 +18,14 @@
 - 安裝完成後，打開終端機確認：
 ```bash
 docker -v
-
+```
 ## 2.2 拉取 MSSQL 映像檔
 
 使用官方映像檔，拉取最新 SQL Server 2019：
 
 ```bash
 docker pull mcr.microsoft.com/mssql/server:2019-latest
-
+```
 說明：
 
 這個指令會將 MSSQL 映像檔下載到本機。
@@ -42,7 +42,7 @@ docker pull mcr.microsoft.com/mssql/server:2019-latest
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong!Passw0rd" \
    -p 1433:1433 --name mssql \
    -d mcr.microsoft.com/mssql/server:2019-latest
-
+```
 說明：
 
 ACCEPT_EULA=Y：同意使用條款
@@ -58,7 +58,7 @@ SA_PASSWORD：設定管理員密碼，至少 8 碼，包含大小寫、數字與
 檢查容器是否啟動：
 ```bash
 docker ps
-
+```
 ## 2.4 連線 MSSQL
 
 ### 使用 SQL Server Management Studio (SSMS)
@@ -70,7 +70,7 @@ docker ps
 ### 使用命令列 sqlcmd
 ```bash
 docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd"
-
+```
 說明：
 
 docker exec -it mssql ...：進入容器內部執行 sqlcmd
