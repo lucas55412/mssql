@@ -39,7 +39,7 @@ docker pull mcr.microsoft.com/mssql/server:2019-latest
 使用剛下載的 MSSQL 映像檔啟動容器：
 
 ```bash
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong!Passw0rd" \
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong\!Passw0rd" \
    -p 1433:1433 --name mssql \
    -d mcr.microsoft.com/mssql/server:2019-latest
 ```
@@ -61,6 +61,31 @@ docker ps
 ```
 ## 2.4 連線 MSSQL
 
+在docker裡安裝
+### 進入容器
+```bash 
+docker exec -it mssql bash
+```
+
+### 在容器內安裝 sqlcmd
+```bash
+apt-get update
+apt-get install -y curl apt-transport-https
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+apt-get update
+ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+```
+### 將 sqlcmd 加入 PATH
+```bash
+echo 'export PATH=$PATH:/opt/mssql-tools/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+### 測試連線
+```bash
+sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd"
+```
+
 ### 使用 SQL Server Management Studio (SSMS)
 - Server name：`localhost,1433`
 - Authentication：SQL Server Authentication
@@ -69,7 +94,7 @@ docker ps
 
 ### 使用命令列 sqlcmd
 ```bash
-docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd"
+docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong\!Passw0rd"
 ```
 說明：
 
