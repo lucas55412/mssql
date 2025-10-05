@@ -1,0 +1,4 @@
+server=localhost,1433
+database=UserDB
+username=sa
+password=YourStrong!Passw0rd
